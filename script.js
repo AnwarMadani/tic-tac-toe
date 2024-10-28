@@ -1,11 +1,13 @@
 let gameBoard = ["", "", "", "", "", "", "", "", "", ]
 let currentPlayer = 'X';
+let running = true;
 
 const cells = document.querySelectorAll('.boardCell');
 
 cells.forEach(cell => cell.addEventListener("click", (e) => cellClicked(e)));
 
 function cellClicked(e){
+    if(!running) return;
     // console.log(e.target.getAttribute('cellIndex'));
     let cellIndex = e.target.getAttribute('cellIndex');
     gameBoard[cellIndex] = currentPlayer;
@@ -43,8 +45,25 @@ function checkWinner(){
         if(cellA === '' || cellB === '' || cellC === '') continue;
 
         if(cellA === cellB && cellB === cellC){
-            console.log(`${currentPlayer} Won!`)
+            playerWon(currentPlayer);
             break;
         }
     }
+}
+
+const restartBtn = document.getElementById('restart');
+const winnerText = document.getElementById('winner');
+restartBtn.addEventListener("click", cleanBoard);
+
+function cleanBoard(){
+    let gameBoard = ["", "", "", "", "", "", "", "", "", ]
+    let currentPlayer = 'X';
+    cells.forEach(cell => cell.textContent = '');
+    winnerText.textContent = '';
+    running = true;
+}
+
+function playerWon(player){
+    winnerText.textContent = `${player} Won This Game!`;
+    running = false;
 }
