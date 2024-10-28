@@ -57,8 +57,8 @@ function checkWinner(){
 }
 
 function cleanBoard(){
-    let gameBoard = ["", "", "", "", "", "", "", "", "", ]
-    let currentPlayer = 'X';
+    gameBoard = ["", "", "", "", "", "", "", "", "", ]
+    currentPlayer = 'X';
     cells.forEach(cell => cell.textContent = '');
     winnerText.textContent = '';
     running = true;
