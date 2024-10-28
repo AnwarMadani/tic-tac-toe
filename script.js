@@ -1,6 +1,10 @@
 let gameBoard = ["", "", "", "", "", "", "", "", "", ]
+const restartBtn = document.getElementById('restart');
+const winnerText = document.getElementById('winner');
+restartBtn.addEventListener("click", cleanBoard);
 let currentPlayer = 'X';
 let running = true;
+winnerText.textContent = `${currentPlayer}'s turn`;
 
 const cells = document.querySelectorAll('.boardCell');
 
@@ -14,7 +18,7 @@ function cellClicked(e){
     if(e.target.textContent !== '') return;
     e.target.textContent = currentPlayer;
     checkWinner();
-    changePlayer();
+    if(running) changePlayer();
 }
 
 
@@ -32,6 +36,7 @@ const winConditions = [
 
 function changePlayer(){
     currentPlayer = (currentPlayer == 'X'? 'O' : 'X');
+    winnerText.textContent = `${currentPlayer}'s turn`;
 }
 
 
@@ -50,10 +55,6 @@ function checkWinner(){
         }
     }
 }
-
-const restartBtn = document.getElementById('restart');
-const winnerText = document.getElementById('winner');
-restartBtn.addEventListener("click", cleanBoard);
 
 function cleanBoard(){
     let gameBoard = ["", "", "", "", "", "", "", "", "", ]
