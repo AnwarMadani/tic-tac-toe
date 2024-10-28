@@ -1,4 +1,16 @@
 let gameBoard = ["", "", "", "", "", "", "", "", "", ]
+let currentPlayer = 'X';
+
+const cells = document.querySelectorAll('.boardCell');
+
+cells.forEach(cell => cell.addEventListener("click", (e) => cellClicked(e)));
+
+function cellClicked(e){
+    console.log(e.target.getAttribute('cellIndex'));
+    e.target.textContent = currentPlayer;
+    changePlayer();
+}
+
 
 const winConditions = [
     [0, 1, 2],
@@ -11,7 +23,6 @@ const winConditions = [
     [2, 4, 6]
 ];
 
-let currentPlayer = 'X';
 
 function changePlayer(){
     currentPlayer = (currentPlayer == 'X'? 'O' : 'X');
