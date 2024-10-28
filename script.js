@@ -6,8 +6,12 @@ const cells = document.querySelectorAll('.boardCell');
 cells.forEach(cell => cell.addEventListener("click", (e) => cellClicked(e)));
 
 function cellClicked(e){
-    console.log(e.target.getAttribute('cellIndex'));
+    // console.log(e.target.getAttribute('cellIndex'));
+    let cellIndex = e.target.getAttribute('cellIndex');
+    gameBoard[cellIndex] = currentPlayer;
+    if(e.target.textContent !== '') return;
     e.target.textContent = currentPlayer;
+    checkWinner();
     changePlayer();
 }
 
@@ -28,23 +32,18 @@ function changePlayer(){
     currentPlayer = (currentPlayer == 'X'? 'O' : 'X');
 }
 
-function selectCell(cell){
-    gameBoard[cell] = currentPlayer;
-    checkWinner();
-    changePlayer();
-}
 
 function checkWinner(){
-    for(let i = 0; i < winConditions; i++){
+    for (let i = 0; i < winConditions.length; i++){
         let condition = winConditions[i];
         let cellA = gameBoard[condition[0]];
         let cellB = gameBoard[condition[1]];
         let cellC = gameBoard[condition[2]];
 
-        if(cellA === '') continue;
+        if(cellA === '' || cellB === '' || cellC === '') continue;
 
-        if(cellA === cellB === cellC){
-            declareWinner();
+        if(cellA === cellB && cellB === cellC){
+            console.log(`${currentPlayer} Won!`)
             break;
         }
     }
